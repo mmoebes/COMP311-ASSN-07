@@ -16,11 +16,10 @@ public class ModelImpl implements Model {
   private final Board board;
   private int curScore;
   private int highScore;
+  private boolean hasHighScore;
   private int level;
   private STATUS status;
   private final List<Observer> observers;
-
-  // ---------- Constructors ----------
 
   public ModelImpl(int width, int height) {
     this(new BoardImpl(width, height));
@@ -30,12 +29,11 @@ public class ModelImpl implements Model {
     this.board = board;
     this.curScore = 0;
     this.highScore = 0;
+    this.hasHighScore = false;
     this.level = 0;
     this.status = STATUS.END_GAME;
     this.observers = new ArrayList<>();
   }
-
-  // ---------- Getters ----------
 
   @Override
   public int getWidth() {
@@ -72,8 +70,6 @@ public class ModelImpl implements Model {
     return status;
   }
 
-  // ---------- Status methods ----------
-
   @Override
   public void startGame() {
     status = STATUS.IN_PROGRESS;
@@ -91,13 +87,12 @@ public class ModelImpl implements Model {
   @Override
   public void endGame() {
     status = STATUS.END_GAME;
-    if (curScore > highScore) {
+    if (!hasHighScore || curScore > highScore) {
       highScore = curScore;
+      hasHighScore = true;
     }
     notifyObservers();
   }
-
-  // ---------- Movement ----------
 
   @Override
   public void moveUp() {
@@ -121,14 +116,14 @@ public class ModelImpl implements Model {
 
   private void move(int drow, int dcol) {
     if (status != STATUS.IN_PROGRESS) {
-      return; // ignore input when no game is running
+      return;
     }
 
     CollisionResult res = board.moveHero(drow, dcol);
     curScore += res.getPoints();
 
     if (res.getResults() == CollisionResult.Result.GAME_OVER) {
-      endGame(); // endGame() notifies observers
+      endGame();
       return;
     }
 
@@ -137,15 +132,13 @@ public class ModelImpl implements Model {
       try {
         board.init(level + 1, TREASURES, WALLS);
       } catch (IllegalArgumentException e) {
-        endGame(); // board is full: even a perfect game ends here
+        endGame();
         return;
       }
     }
 
     notifyObservers();
   }
-
-  // ---------- Observer pattern ----------
 
   @Override
   public void addObserver(Observer o) {
