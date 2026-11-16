@@ -6,20 +6,20 @@ public class Hero extends APiece implements MovablePiece {
   }
 
   @Override
-public CollisionResult collide(Piece other) {
+  public CollisionResult collide(Piece other) {
     if (other == null) {
-        return new CollisionResult(0, CollisionResult.Result.CONTINUE);
+      return new CollisionResult(0, CollisionResult.Result.CONTINUE);
     }
     if (other instanceof Treasure) {
-        return new CollisionResult(((Treasure) other).getValue(), CollisionResult.Result.CONTINUE);
+      return new CollisionResult(((Treasure) other).getValue(), CollisionResult.Result.CONTINUE);
     }
     if (other instanceof Enemy) {
-        return new CollisionResult(0, CollisionResult.Result.GAME_OVER);
+      return new CollisionResult(0, CollisionResult.Result.GAME_OVER);
     }
     if (other instanceof Exit) {
-        return new CollisionResult(0, CollisionResult.Result.NEXT_LEVEL);
+      return new CollisionResult(0, CollisionResult.Result.NEXT_LEVEL);
     }
     // Wall or any unknown piece
     throw new IllegalArgumentException("Hero cannot collide with " + other.getName());
-}
+  }
 }
