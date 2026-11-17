@@ -10,9 +10,9 @@ import java.util.List;
 
 public class ModelImpl implements Model {
 
-  private static final int TREASURES = 3; // must be at least 2
-  private static final int WALLS = 3; // must be at least 2
-
+  private static final int TREASURES = 3;
+  private static final int WALLS = 3;
+  
   private final Board board;
   private int curScore;
   private int highScore;
@@ -78,7 +78,7 @@ public class ModelImpl implements Model {
     try {
       board.init(level + 1, TREASURES, WALLS);
     } catch (IllegalArgumentException e) {
-      endGame(); // board too small even for level 1
+      endGame(); 
       return;
     }
     notifyObservers();
