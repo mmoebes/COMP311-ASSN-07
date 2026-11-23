@@ -35,4 +35,14 @@ public interface Model extends Subject {
     END_GAME,
     IN_PROGRESS
   }
+
+  default boolean isHardMode() {
+    return false;
+  }
+
+  default void toggleHardMode() {}
+
+  default int getFrozenTurns() {
+    return 0;
+  }
 }

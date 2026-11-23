@@ -21,7 +21,6 @@ public class ModelImpl implements Model {
   private STATUS status;
   private final List<Observer> observers;
 
-
   public ModelImpl(int width, int height) {
     this(new BoardImpl(width, height));
   }
@@ -30,12 +29,11 @@ public class ModelImpl implements Model {
     this.board = board;
     this.curScore = 0;
     this.highScore = 0;
-    hasHighScore = false;
+    this.hasHighScore = false;
     this.level = 0;
     this.status = STATUS.END_GAME;
     this.observers = new ArrayList<>();
   }
-
 
   @Override
   public int getWidth() {
@@ -72,14 +70,14 @@ public class ModelImpl implements Model {
     return status;
   }
 
-
   @Override
   public void startGame() {
     status = STATUS.IN_PROGRESS;
     curScore = 0;
     level = 1;
     try {
-      board.init(level + 1, TREASURES, WALLS);
+      board.setHardMode(hardMode);
+      board.init(level + 1, TREASURES, WALLS, FREEZES);
     } catch (IllegalArgumentException e) {
       endGame(); // board too small even for level 1
       return;
@@ -96,7 +94,6 @@ public class ModelImpl implements Model {
     }
     notifyObservers();
   }
-
 
   @Override
   public void moveUp() {
@@ -134,7 +131,7 @@ public class ModelImpl implements Model {
     if (res.getResults() == CollisionResult.Result.NEXT_LEVEL) {
       level++;
       try {
-        board.init(level + 1, TREASURES, WALLS);
+        board.init(level + 1, TREASURES, WALLS, FREEZES);
       } catch (IllegalArgumentException e) {
         endGame();
         return;
@@ -153,5 +150,26 @@ public class ModelImpl implements Model {
     for (Observer o : observers) {
       o.update();
     }
+  }
+
+  private static final int FREEZES = 1;   // one crystal per room
+  private boolean hardMode = false;
+
+  @Override
+  public boolean isHardMode() {
+    return hardMode;
+  }
+
+  @Override
+  public void toggleHardMode() {
+    if (status == STATUS.IN_PROGRESS) return;   // only changeable before a game
+    hardMode = !hardMode;
+    board.setHardMode(hardMode);
+    notifyObservers();
+  }
+
+  @Override
+  public int getFrozenTurns() {
+    return board.getFrozenTurns();
   }
 }

@@ -3,7 +3,8 @@ package edu.unc.comp301.dungeon.model.pieces;
 public class Enemy extends APiece implements MovablePiece {
 
   public Enemy() {
-    super("Enemy", "Photos/enemy.jpg");
+    super(
+        "Enemy", "images/enemy.png");
   }
 
   @Override

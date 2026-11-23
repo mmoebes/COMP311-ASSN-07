@@ -17,4 +17,14 @@ public interface Board {
   void set(Piece p, Posn newPos);
 
   CollisionResult moveHero(int drow, int dcol);
+
+  default void init(int enemies, int treasures, int walls, int freezes) {
+    init(enemies, treasures, walls);
+  }
+
+  default void setHardMode(boolean hard) {}
+
+  default int getFrozenTurns() {
+    return 0;
+  }
 }

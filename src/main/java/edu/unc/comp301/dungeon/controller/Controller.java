@@ -10,4 +10,6 @@ public interface Controller {
   void moveRight();
 
   void startGame();
+
+  default void toggleHardMode() {}
 }
