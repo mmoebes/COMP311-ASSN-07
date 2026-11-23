@@ -17,15 +17,17 @@ public class AppLauncher extends Application {
   public void start(Stage stage) {
     stage.setTitle("Maleea's Dungeon Crawler");
 
-    // MVC setup
     Model model = new ModelImpl(10, 10);
     Controller pc = new ControllerImpl(model);
     View view = new View(pc, model, stage, WIDTH, HEIGHT);
     model.addObserver(view);
 
-    // Initial scene
     Scene scene = new Scene(view.render(), WIDTH, HEIGHT);
-    scene.getStylesheets().add(AppLauncher.class.getResource("/dungeon.css").toExternalForm());
+    java.net.URL css = AppLauncher.class.getResource("/dungeon.css");
+    System.out.println("CSS lookup: " + css);
+    if (css != null) {
+      scene.getStylesheets().add(css.toExternalForm());
+    }
     stage.setScene(scene);
     stage.show();
   }

@@ -178,7 +178,7 @@ After setting up the MVC architecture, you need to render the initial user inter
 To do this, you must:
 1. Create a new `Scene` using `new Scene(view.render(), width, height)`.  For now, pick whatever numbers you like for `width` and `height`.  It may change once you render a gameboard and decide if the window is too big or too small by default.   _The `render()` method of the view will eventually return the root JavaFX node that represents your UI layout._
 
-2. Add a stylesheet to your scene using `scene.getStylesheets().add("dungeon.css");`. _This allows you to customize the appearance of your game interface with CSS.  This file should live under the resources folder in `src/main/resources/...`_
+2. Add a stylesheet to your scene using `scene.getStylesheets().add("dungeon.css");`. _This allows you to customize the appearance of your game interface with CSS. This file should live under the resources folder in `src/main/resources1`_
 
 3. Attach the scene to the stage by calling `stage.setScene(scene);`. _This tells JavaFX what content should be displayed in the window._
 

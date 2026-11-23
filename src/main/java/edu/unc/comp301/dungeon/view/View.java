@@ -48,7 +48,10 @@ public class View implements FXComponent, Observer {
   @Override
   public void update() {
     Scene scene = new Scene(render(), width, height);
-    scene.getStylesheets().add(View.class.getResource("/dungeon.css").toExternalForm());
+    java.net.URL css = View.class.getResource("/dungeon.css");
+    if (css != null) {
+      scene.getStylesheets().add(css.toExternalForm());
+    }
     stage.setScene(scene);
   }
 

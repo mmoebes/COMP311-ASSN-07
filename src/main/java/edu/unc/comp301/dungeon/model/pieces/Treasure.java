@@ -7,6 +7,6 @@ public class Treasure extends APiece {
   }
 
   public int getValue() {
-    return -1;
+    return 1;
   }
 }
