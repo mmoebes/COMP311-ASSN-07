@@ -1,0 +1,54 @@
+/* Each theme defines just two colors */
+.theme-dark  { -dc-bg: #000000; -dc-fg: #ffffff; }
+.theme-light { -dc-bg: #ffffff; -dc-fg: #000000; }
+
+.root {
+    -fx-font-family: "Consolas", "Courier New", monospace;
+}
+
+/* Backgrounds */
+.title-root, .game-root {
+    -fx-background-color: -dc-bg;
+}
+
+/* All text */
+.label {
+    -fx-text-fill: -dc-fg;
+    -fx-font-size: 20px;
+}
+.info {
+    -fx-fill: -dc-fg;
+    -fx-font-size: 15px;
+}
+.title {
+    -fx-font-size: 52px;
+    -fx-font-weight: bold;
+}
+
+/* All buttons: outlined, invert on hover/selected */
+.button, .toggle-button {
+    -fx-background-color: -dc-bg;
+    -fx-text-fill: -dc-fg;
+    -fx-border-color: -dc-fg;
+    -fx-border-width: 2;
+    -fx-font-size: 18px;
+    -fx-font-weight: bold;
+    -fx-cursor: hand;
+}
+.button:hover, .toggle-button:hover, .toggle-button:selected {
+    -fx-background-color: -dc-fg;
+    -fx-text-fill: -dc-bg;
+}
+.pad-button {
+    -fx-min-width: 56px;
+    -fx-min-height: 56px;
+}
+
+/* Board */
+.board {
+    -fx-border-color: -dc-fg;
+    -fx-border-width: 3;
+}
+.tile {
+    -fx-background-color: -dc-bg;
+}
